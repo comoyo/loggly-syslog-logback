@@ -7,6 +7,7 @@ import ch.qos.logback.contrib.jackson.JacksonJsonFormatter;
 import ch.qos.logback.contrib.json.classic.JsonLayout;
 import ch.qos.logback.core.Layout;
 import ch.qos.logback.core.net.SyslogAppenderBase;
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -44,6 +45,16 @@ public class LogglySyslogAppender extends SyslogAppenderBase<ILoggingEvent> {
     }
   };
 
+
+  @Override
+  public SyslogOutputStream createOutputStream() throws UnknownHostException, SocketException {
+    try {
+      return factory.createStream(getSyslogHost(), getPort());
+    } catch (IOException e) {
+      throw new SocketException(e.getMessage());
+    }
+  }
+
   @Override
   public Layout<ILoggingEvent> buildLayout() {
     layout = new LogglySyslogLayout();
@@ -74,9 +85,11 @@ public class LogglySyslogAppender extends SyslogAppenderBase<ILoggingEvent> {
     buildLayout();
 
     if (errorCount == 0) {
-      super.start();
+      // we don't want to go super.start(), only set started as true
+      started = true;
     }
   }
+
 
 
   @Override

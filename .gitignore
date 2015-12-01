@@ -1,0 +1,46 @@
+*.class
+*.pyc
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+*.pydevproject
+uat-results.log
+.idea
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+build/**
+build/**/*
+target/**
+src/generated/**
+src/generated/**/*
+csg-ifc/target/generated-sources/java/**
+*.orig
+*.iml
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+*.ipr
+*.iws
+# Gradle
+.gradle/
+gradlew.bat
+gradle.properties
+src/generated
+log/
+xdpa*.cfg

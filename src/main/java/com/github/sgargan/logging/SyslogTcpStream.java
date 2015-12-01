@@ -1,5 +1,7 @@
 package com.github.sgargan.logging;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -7,7 +9,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class SyslogTcpStream extends OutputStream {
+public class SyslogTcpStream extends SyslogOutputStream {
 
   private InetAddress address;
   private Socket socket;
@@ -15,6 +17,7 @@ public class SyslogTcpStream extends OutputStream {
   final private int port;
 
   public SyslogTcpStream(String syslogHost, int port) throws UnknownHostException, SocketException, IOException {
+    super(syslogHost, port); // dummy to satisfy super
     this.address = InetAddress.getByName(syslogHost);
     this.port = port;
     this.socket = new Socket(address, port);
@@ -46,5 +49,4 @@ public class SyslogTcpStream extends OutputStream {
   public void write(int b) throws IOException {
     out.write(b);
   }
-
 }
